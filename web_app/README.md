@@ -25,4 +25,5 @@ Home Archive consists of a web application built with Flask, interfacing with a 
 - Python 3.10.13
 
 ### Setup
-1. Clone the repository:
+1. Clone the repository
+2. cd web_app and run start.bat

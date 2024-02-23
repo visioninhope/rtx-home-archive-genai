@@ -35,7 +35,6 @@ if not "%env_path_found%"=="" (
     pip list | findstr pydantic-settings > nul || pip install pydantic-settings==2.0.3
     pip list | findstr transformers > nul || pip install transformers==4.34.0
     
-    python verify_install.py
     python app.py
     pause
 ) else (
