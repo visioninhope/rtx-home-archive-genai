@@ -1,0 +1,35 @@
+{
+    "users": [
+      {
+        "userId": "1",
+        "username": "admin",
+        "password": "adminpass",
+        "role": "admin"
+      },
+      {
+        "userId": "2",
+        "username": "user1",
+        "password": "user1pass",
+        "role": "family_member"
+      },
+      {
+        "userId": "3",
+        "username": "user2",
+        "password": "user2pass",
+        "role": "family_member"
+      },
+      {
+        "userId": "4",
+        "username": "user3",
+        "password": "user3pass",
+        "role": "family_member"
+      },
+      {
+        "userId": "5",
+        "username": "guest",
+        "password": "guestpass",
+        "role": "guest"
+      }
+    ]
+  }
+  

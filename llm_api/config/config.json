@@ -1,0 +1,18 @@
+{
+    "models": {
+        "supported": [
+            {
+                "name": "Llama 2 13B int4",
+                "installed": true,
+                "metadata": {
+                    "model_path": "C:\\Users\\tarun\\model\\llama\\llama13_int4_engine",
+                    "engine": "llama_float16_tp1_rank0.engine",
+                    "tokenizer_path": "C:\\Users\\tarun\\model\\llama\\llama13_hf",
+                    "max_new_tokens": 1024,
+                    "max_input_token": 3900,
+                    "temperature": 0.1
+                }
+            }
+        ]
+    }
+}

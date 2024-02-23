@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+
+    <style>
+        /* Custom CSS for styling */
+        .footer-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header-footer-bg {
+            background-color: #4a5568; /* Dark grayish blue */
+        }
+
+        .card-bg {
+            background-color: #f3f4f6; /* Light grayish blue */
+            border: 1px solid #cbd5e0; /* Light gray border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        .card-bg:hover {
+            transform: translateY(-5px); /* Add a slight lift on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+
+    <header class="text-white bg-gray-100 body-font shadow w-full header-footer-bg">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center h-full">
+            <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0" href="/home"> <!-- Changed text-white-900 to text-white -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="ml-3 text-xl text-white">HomeArchive Powered by GenAI</span> <!-- Changed text-white-200 to text-white -->
+            </a>
+        </div>
+    </header>
+    
+    
+
+<div class="container max-w-md flex-grow">
+    <!-- Tag Selection -->
+    <div id="tagSelection" class="flex flex-wrap justify-center gap-2 mb-4">
+    <!-- Tags will be loaded here dynamically -->
+    </div>
+
+    <div class="bg-white rounded-lg border border-gray-200 shadow-md p-6 mx-4">
+        <textarea id="prompt" name="prompt" class="form-control block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-500 focus:outline-none" rows="4" maxlength="200" placeholder="Your Document description here..."></textarea>
+        <button type="button" class="inline-flex items-center px-4 py-2 mt-3 text-base font-medium text-white bg-gray-500 border border-transparent rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400" id="voice">
+            <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 2a3 3 0 00-3 3v6a3 3 0 106 0V5a3 3 0 00-3-3zm-4 3a4 4 0 118 0v6a4 4 0 11-8 0V5z" clip-rule="evenodd" />
+                <path d="M8 14.25V16h4v-1.75a7.456 7.456 0 013.5-.75c.69 0 1.36.07 2 .2.64-.86.99-1.9.99-3V5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v7.12c-.37-.05-.74-.07-1.12-.07s-.75.02-1.12.07V5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v6.45c-.59.09-1.16.25-1.7.45z" />
+            </svg>
+            Record
+        </button>
+    </div>
+    
+    <div class="bg-white rounded-lg border border-gray-200 shadow-md p-6 mx-4">
+        <h2 class="text-lg font-semibold mb-2">Document Upload</h2>
+        <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+            <input type="file" name="file" id="file" class="block w-full text-sm text-gray-500
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+            file:bg-violet-50 file:text-violet-700
+            hover:file:bg-violet-100"/>
+            <button type="button" id="uploadBtn" class="px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">Submit</button>
+        </form>
+        <div id="uploadResult" class="mt-4"></div>
+    </div>
+</div>
+
+<div id="uploadPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+    <div class="bg-white p-5 rounded-lg flex items-center">
+        <div class="loader mr-5"></div>
+        <p>Submission in progress...</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-gray-100 body-font w-full header-footer-bg">
+    <div class="container px-5 py-8 mx-auto footer-center">
+        <span class="text-white-200 text-sm text-center mb-2">© 2024 Tarun Chawdhury</span>
+        <span class="inline-flex mt-2 justify-center">
+            <a href="privacy" class="text-gray-200">Privacy Policy</a>
+        </span>
+    </div>
+</footer>
+
+
+</body>
+</html>

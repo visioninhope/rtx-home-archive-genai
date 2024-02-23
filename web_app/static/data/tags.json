@@ -1,0 +1,18 @@
+[
+    {"id": "legal", "name": "Legal", "icon": "fas fa-gavel"},
+    {"id": "healthcare", "name": "Healthcare", "icon": "fas fa-heartbeat"},
+    {"id": "tax", "name": "Tax", "icon": "fas fa-file-invoice-dollar"},
+    {"id": "academic", "name": "Academic", "icon": "fas fa-book"},
+    {"id": "property", "name": "Property", "icon": "fas fa-home"},
+    {"id": "grocery-bill", "name": "Grocery Bill", "icon": "fas fa-shopping-cart"},
+    {"id": "bank-statement", "name": "Bank Statement", "icon": "fas fa-university"},
+    {"id": "credit-card-statement", "name": "Credit Card Statement", "icon": "fas fa-credit-card"},
+    {"id": "stock", "name": "Stock", "icon": "fas fa-chart-line"},
+    {"id": "photo", "name": "Photo", "icon": "fas fa-camera-retro"},
+    {"id": "knowledge", "name": "Knowledge", "icon": "fas fa-brain"},
+    {"id": "general", "name": "General", "icon": "fas fa-asterisk"},
+    {"id": "tarun", "name": "Tarun", "icon": "fas fa-user"},
+    {"id": "tanisha", "name": "Tanisha", "icon": "fas fa-user"},
+    {"id": "mousmi", "name": "Mousmi", "icon": "fas fa-user"},
+    {"id": "arinjoy", "name": "Arinjoy", "icon": "fas fa-user"}
+]

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Documents</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/browse.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/genai.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
+    <style>
+        /* Custom CSS for styling */
+        .footer-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header-footer-bg {
+            background-color: #4a5568; /* Dark grayish blue */
+        }
+
+        .card-bg {
+            background-color: #f3f4f6; /* Light grayish blue */
+            border: 1px solid #cbd5e0; /* Light gray border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        .card-bg:hover {
+            transform: translateY(-5px); /* Add a slight lift on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+
+    <header class="text-white bg-gray-100 body-font shadow w-full header-footer-bg">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center h-full">
+            <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0" href="/home"> <!-- Changed text-white-900 to text-white -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="ml-3 text-xl text-white">HomeArchive Powered by GenAI</span> <!-- Changed text-white-200 to text-white -->
+            </a>
+        </div>
+    </header>
+    
+
+    <div class="container px-4 py-8">
+
+        <div class="bg-white rounded-lg border border-gray-200 shadow-md p-6 mx-4 text-center card-bg mb-8">
+            <h2 class="text-lg font-semibold mb-2">Discover Your Documents</h2>
+            <p class="mb-4 text-gray-600">Easily find, explore, and interact with your documents. Utilize the power of Generative AI to summarize content, clarify details, and ask questions directly within your documents.</p>
+            <form id="browseForm" class="space-y-4">
+                <input type="text" name="prompt" id="prompt" placeholder="Search by keywords, topics, or questions" class="block w-full p-2 border border-gray-300 rounded-md"/>
+                <button type="button" id="searchBtn" class="px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
+                    Explore Now
+                </button>
+            </form>
+            <div id="searchResults" class="mt-4"></div>
+        </div>
+        
+    </div>
+
+    <div id="messageContainer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4 py-6" style="display: none;">
+        <div id="messageContent" class="w-full max-w-4xl mx-auto my-8 bg-black rounded-lg shadow-lg overflow-hidden p-6 text-white">
+            <span id="closeMessage" class="cursor-pointer text-white float-right text-2xl">&times;</span>
+            <div class="p-4 bg-gray-800 rounded-lg shadow">
+                <p id="messageText" class="text-white">Generating Explanation...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="explainPopup" class="hidden cursor-pointer p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300" style="position: absolute; z-index: 1000;">
+        <i class="fas fa-lightbulb"></i> <!-- FontAwesome lightbulb icon -->
+    </div>
+ <!-- Footer -->
+ <footer class="text-gray-100 body-font w-full header-footer-bg">
+    <div class="container px-5 py-8 mx-auto footer-center">
+        <span class="text-gray-200 text-sm text-center mb-2">© 2024 Tarun Chawdhury</span>
+        <span class="inline-flex mt-2 justify-center">
+            <a href="privacy" class="text-gray-200">Privacy Policy</a>
+        </span>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="flex flex-col min-h-screen">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeArchive General Document Exploration with GenAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/genai.js') }}"></script>
+    <style>
+        /* Custom CSS for styling */
+        .footer-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header-footer-bg {
+            background-color: #4a5568; /* Dark grayish blue */
+        }
+
+        .card-bg {
+            background-color: #f3f4f6; /* Light grayish blue */
+            border: 1px solid #cbd5e0; /* Light gray border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        .card-bg:hover {
+            transform: translateY(-5px); /* Add a slight lift on hover */
+        }
+    </style>
+</head>
+<body class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 flex flex-col flex-1 transition-colors duration-500">
+   
+    <header class="text-white bg-gray-100 body-font shadow w-full header-footer-bg">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center h-full">
+            <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0" href="/home"> <!-- Changed text-white-900 to text-white -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="ml-3 text-xl text-white">HomeArchive Powered by GenAI</span> <!-- Changed text-white-200 to text-white -->
+            </a>
+        </div>
+    </header>
+  
+    <div class="container mx-auto px-4 py-8">
+        <div class="mx-auto max-w-4xl my-8 bg-gray-200 dark:bg-gray-700 rounded-lg shadow overflow-hidden">
+            <!-- Placeholder for AI-generated title -->
+            
+
+            <img src="/static/images/homearchive-bg.png" alt="Neural Networks" class="w-full object-cover mb-6" style="max-height: 200px;">
+            <div class="container mx-auto px-4 py-8">
+                <div class="mx-auto max-w-4xl my-8 bg-gray-200 dark:bg-gray-700 rounded-lg shadow overflow-hidden">
+                    <h1 id="aiGeneratedTitle" class="text-2xl md:text-3xl font-semibold text-center mt-4 mb-6"></h1>
+                    <div class="px-6 py-4" id="documentContent">
+                       <!-- Tailwind CSS-based loading indicator -->
+                    <div id="loadingIndicator" class="hidden text-center">
+                        <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-lg text-gray-500 mt-2">AI is working hard to generate content...</p>
+                    </div>
+                    <!-- Placeholder for AI-generated content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="explainPopup" class="hidden cursor-pointer p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300" style="position: absolute; z-index: 1000;">
+        <i class="fas fa-lightbulb"></i> <!-- FontAwesome lightbulb icon -->
+    </div>
+
+    <div id="summaryPopup" class="hidden cursor-pointer p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300" style="position: absolute; z-index: 1000;">
+        <i class="fas fa-list"></i> <!-- Book Icon -->
+    </div>
+
+    <div id="messageContainer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4 py-6" style="display: none;">
+        <div id="messageContent" class="w-full max-w-4xl mx-auto my-8 bg-black rounded-lg shadow-lg overflow-hidden p-6 text-white">
+            <span id="closeMessage" class="cursor-pointer text-white float-right text-2xl">&times;</span>
+           
+            <p id="selectedText" class="mb-4">Selected Text Here</p>
+            <div class="p-4 bg-gray-800 rounded-lg shadow">
+                <p id="messageText" class="text-white">Generating Explanation...</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="summaryMessageContainer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4 py-6" style="display: none;">
+        <div id="summaryMessageContent" class="w-full max-w-4xl mx-auto my-8 bg-black rounded-lg shadow-lg overflow-hidden p-6 text-white">
+            <span id="closeSummaryMessage" class="cursor-pointer text-white float-right text-2xl">&times;</span>
+            <h3 id="summaryBlogTitle" class="text-lg font-semibold mb-4">Summarize Blog Action</h3>
+            <p id="summarySelectedText" class="mt-2 mb-4">Selected Text Here</p>
+            <div class="p-4 bg-gray-800 rounded-lg shadow">
+                <p id="summaryMessageText" class="text-white">Generating Summary...</p>
+            </div>
+        </div>
+    </div>
+    
+    
+  <!-- Footer -->
+  <footer class="text-gray-100 body-font w-full header-footer-bg">
+    <div class="container px-5 py-8 mx-auto footer-center">
+        <span class="text-gray-200 text-sm text-center mb-2">© 2024 Tarun Chawdhury</span>
+        <span class="inline-flex mt-2 justify-center">
+            <a href="privacy" class="text-gray-200">Privacy Policy</a>
+        </span>
+    </div>
+</footer>
+
+<script>
+    $(document).ready(function() {
+        var docName = new URLSearchParams(window.location.search).get('docName');
+        if (docName) {
+            $('#loadingIndicator').removeClass('hidden'); // Show loading indicator
+            $.get(`/get_ai_generated_blog?docName=${docName}`, function(response) {
+                $('#loadingIndicator').addClass('hidden'); // Hide loading indicator
+                if (response && response.length >= 2) {
+                    var title = response[0].replace("Title: ", "").replace(/\"/g, "");
+                    var content = response[1];
+                   
+                    $('#documentContent').html(content);
+                } else {
+                    $('#documentContent').html("<p>Failed to load AI-generated content correctly.</p>");
+                }
+            }).fail(function() {
+                $('#loadingIndicator').addClass('hidden'); // Hide loading indicator
+                $('#documentContent').html("<p>Failed to communicate with the server.</p>");
+            });
+        }
+    });
+    </script>
+    
+    
+    
+    
+    
+    
+</body>
+</html>

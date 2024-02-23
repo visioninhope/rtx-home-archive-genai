@@ -1,0 +1,17 @@
+Flask==2.0.1
+Flask-Session
+Pillow>=9.0.0
+PyPDF2==2.0.0  # For PDF text extraction
+pytesseract==0.3.7  # For OCR (text extraction from images)
+uuid  # Actually, uuid is part of Python's standard library, so it doesn't need to be in requirements.txt
+Werkzeug==2.0.1  # Flask dependency, but might be needed to specify for certain features
+chromadb  # Assuming this is a custom or private package for handling your database logic
+
+# Additional libraries you might need:
+numpy>=1.22.5  # Often a dependency for image processing tasks
+requests==2.28  # If you're making HTTP requests
+langchain
+langchain-community
+transformers
+PyMuPDF
+requests
